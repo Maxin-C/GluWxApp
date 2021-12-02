@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.MedicinePlanMapper">
+
+    <insert id="addMedicinePlan" parameterType="com.glu.wxApp.domain.MedicinePlan" useGeneratedKeys="true">
+        INSERT INTO `medicine_plan`
+            (`user_id`, `name`, `dasage`, `time`, `week_fre`, `day_fre`)
+        VALUES
+        (#{medicinePlan.userId, jdbcType=INTEGER}, #{medicinePlan.name, jdbcType=VARCHAR}, #{medicinePlan.dasage, jdbcType=VARCHAR},
+         #{medicinePlan.time, jdbcType=INTEGER}, #{medicinePlan.weekFre, jdbcType=INTEGER}, #{medicinePlan.dayFre, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findMedicinePlan" parameterType="com.glu.wxApp.domain.MedicinePlan" resultType="com.glu.wxApp.domain.MedicinePlan">
+        SELECT * FROM `medicine_plan`
+        where (`user_id` = if(#{medicinePlan.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicinePlan.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`name` = ifnull(#{medicinePlan.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`dasage` = ifnull(#{medicinePlan.dasage, jdbcType=VARCHAR}, `dasage`) or isnull(`dasage`))
+          and (`time` = if(#{medicinePlan.time, jdbcType=INTEGER}=-1, `time`, #{medicinePlan.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{medicinePlan.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{medicinePlan.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{medicinePlan.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{medicinePlan.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </select>
+
+    <update id="updateMedicinePlan" parameterType="com.glu.wxApp.domain.MedicinePlan">
+        UPDATE `medicine_plan` set
+                                 `user_id`=#{medicinePlanNew.userId, jdbcType=INTEGER}, `name`=#{medicinePlanNew.name, jdbcType=VARCHAR},
+                                 `dasage`=#{medicinePlanNew.dasage, jdbcType=VARCHAR}, `time`=#{medicinePlanNew.time, jdbcType=INTEGER},
+                                 `week_fre`=#{medicinePlanNew.weekFre, jdbcType=INTEGER}, `day_fre`=#{medicinePlanNew.dayFre, jdbcType=INTEGER}
+        where (`user_id` = if(#{medicinePlanOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicinePlanOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`name` = ifnull(#{medicinePlanOld.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`dasage` = ifnull(#{medicinePlanOld.dasage, jdbcType=VARCHAR}, `dasage`) or isnull(`dasage`))
+          and (`time` = if(#{medicinePlanOld.time, jdbcType=INTEGER}=-1, `time`, #{medicinePlanOld.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{medicinePlanOld.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{medicinePlanOld.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{medicinePlanOld.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{medicinePlanOld.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </update>
+
+    <delete id="deleteMedicinePlan" parameterType="com.glu.wxApp.domain.MedicinePlan">
+        DELETE FROM `medicine_plan`
+        where (`user_id` = if(#{medicinePlan.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicinePlan.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`name` = ifnull(#{medicinePlan.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`dasage` = ifnull(#{medicinePlan.dasage, jdbcType=VARCHAR}, `dasage`) or isnull(`dasage`))
+          and (`time` = if(#{medicinePlan.time, jdbcType=INTEGER}=-1, `time`, #{medicinePlan.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{medicinePlan.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{medicinePlan.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{medicinePlan.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{medicinePlan.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </delete>
+
+</mapper>

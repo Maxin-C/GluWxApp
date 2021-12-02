@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.FoodAnalysisMapper">
+
+    <insert id="addFoodAnalysis" parameterType="com.glu.wxApp.domain.FoodAnalysis" useGeneratedKeys="true">
+        INSERT INTO `food_analysis`
+            (`user_id`, `date`, `meal_type`, `energy`, `protein`, `fat`, `cho`, `na`, `vegetable_fruit`)
+        VALUES
+        (#{foodAnalysis.userId, jdbcType=INTEGER}, #{foodAnalysis.date, jdbcType=DATE}, #{foodAnalysis.mealType, jdbcType=INTEGER},
+         #{foodAnalysis.energy, jdbcType=REAL}, #{foodAnalysis.protein, jdbcType=REAL}, #{foodAnalysis.fat, jdbcType=REAL},
+         #{foodAnalysis.cho, jdbcType=REAL}, #{foodAnalysis.na, jdbcType=REAL}, #{foodAnalysis.vegetableFruit, jdbcType=REAL})
+    </insert>
+
+    <select id="findFoodAnalysis" parameterType="com.glu.wxApp.domain.FoodAnalysis" resultType="com.glu.wxApp.domain.FoodAnalysis">
+        SELECT * FROM `food_analysis`
+        where (`user_id` = if(#{foodAnalysis.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodAnalysis.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`date` = ifnull(#{foodAnalysis.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`meal_type` = if(#{foodAnalysis.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodAnalysis.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`energy` = if(#{foodAnalysis.energy, jdbcType=REAL}=-1, `energy`, #{foodAnalysis.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{foodAnalysis.protein, jdbcType=REAL}=-1, `protein`, #{foodAnalysis.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{foodAnalysis.fat, jdbcType=REAL}=-1, `fat`, #{foodAnalysis.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{foodAnalysis.cho, jdbcType=REAL}=-1, `cho`, #{foodAnalysis.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{foodAnalysis.na, jdbcType=REAL}=-1, `na`, #{foodAnalysis.na, jdbcType=REAL}) or isnull(`na`))
+          and (`vegetable_fruit` = if(#{foodAnalysis.vegetableFruit, jdbcType=REAL}=-1, `vegetable_fruit`, #{foodAnalysis.vegetableFruit, jdbcType=REAL}) or isnull(`vegetable_fruit`))
+    </select>
+
+    <update id="updateFoodAnalysis" parameterType="com.glu.wxApp.domain.FoodAnalysis">
+        UPDATE `food_analysis` set
+                                 `user_id`=#{foodAnalysisNew.userId, jdbcType=INTEGER}, `date`=#{foodAnalysisNew.date, jdbcType=DATE},
+                                 `meal_type`=#{foodAnalysisNew.mealType, jdbcType=INTEGER}, `energy`=#{foodAnalysisNew.energy, jdbcType=REAL},
+                                 `protein`=#{foodAnalysisNew.protein, jdbcType=REAL}, `fat`=#{foodAnalysisNew.fat, jdbcType=REAL},
+                                 `cho`=#{foodAnalysisNew.cho, jdbcType=REAL}, `na`=#{foodAnalysisNew.na, jdbcType=REAL},
+                                 `vegetable_fruit`=#{foodAnalysisNew.vegetableFruit, jdbcType=REAL}
+        where (`user_id` = if(#{foodAnalysisOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodAnalysisOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`date` = ifnull(#{foodAnalysisOld.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`meal_type` = if(#{foodAnalysisOld.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodAnalysisOld.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`energy` = if(#{foodAnalysisOld.energy, jdbcType=REAL}=-1, `energy`, #{foodAnalysisOld.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{foodAnalysisOld.protein, jdbcType=REAL}=-1, `protein`, #{foodAnalysisOld.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{foodAnalysisOld.fat, jdbcType=REAL}=-1, `fat`, #{foodAnalysisOld.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{foodAnalysisOld.cho, jdbcType=REAL}=-1, `cho`, #{foodAnalysisOld.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{foodAnalysisOld.na, jdbcType=REAL}=-1, `na`, #{foodAnalysisOld.na, jdbcType=REAL}) or isnull(`na`))
+          and (`vegetable_fruit` = if(#{foodAnalysisOld.vegetableFruit, jdbcType=REAL}=-1, `vegetable_fruit`, #{foodAnalysisOld.vegetableFruit, jdbcType=REAL}) or isnull(`vegetable_fruit`))
+    </update>
+
+    <delete id="deleteFoodAnalysis" parameterType="com.glu.wxApp.domain.FoodAnalysis">
+        DELETE FROM `food_analysis`
+        where (`user_id` = if(#{foodAnalysis.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodAnalysis.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`date` = ifnull(#{foodAnalysis.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`meal_type` = if(#{foodAnalysis.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodAnalysis.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`energy` = if(#{foodAnalysis.energy, jdbcType=REAL}=-1, `energy`, #{foodAnalysis.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{foodAnalysis.protein, jdbcType=REAL}=-1, `protein`, #{foodAnalysis.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{foodAnalysis.fat, jdbcType=REAL}=-1, `fat`, #{foodAnalysis.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{foodAnalysis.cho, jdbcType=REAL}=-1, `cho`, #{foodAnalysis.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{foodAnalysis.na, jdbcType=REAL}=-1, `na`, #{foodAnalysis.na, jdbcType=REAL}) or isnull(`na`))
+          and (`vegetable_fruit` = if(#{foodAnalysis.vegetableFruit, jdbcType=REAL}=-1, `vegetable_fruit`, #{foodAnalysis.vegetableFruit, jdbcType=REAL}) or isnull(`vegetable_fruit`))
+    </delete>
+
+</mapper>

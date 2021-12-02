@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.GluRecordMapper">
+
+    <insert id="addGluRecord" parameterType="com.glu.wxApp.domain.GluRecord" useGeneratedKeys="true">
+        INSERT INTO `glu_record`
+            (`user_id`, `plan_id`, `date`, `value`)
+        VALUES
+        (#{gluRecord.userId, jdbcType=INTEGER}, #{gluRecord.planId, jdbcType=INTEGER}, #{gluRecord.date, jdbcType=DATE}, #{gluRecord.value, jdbcType=REAL})
+    </insert>
+
+    <select id="findGluRecord" parameterType="com.glu.wxApp.domain.GluRecord" resultType="com.glu.wxApp.domain.GluRecord">
+        SELECT * FROM `glu_record`
+        where (`user_id` = if(#{gluRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{gluRecord.planId, jdbcType=INTEGER}=-1, `plan_id`, #{gluRecord.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{gluRecord.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`value` = if(#{gluRecord.value, jdbcType=REAL}=-1, `value`, #{gluRecord.value, jdbcType=REAL}) or isnull(`value`))
+    </select>
+
+    <update id="updateGluRecord" parameterType="com.glu.wxApp.domain.GluRecord">
+        UPDATE `glu_record` set
+                                 `user_id`=#{gluRecordNew.userId, jdbcType=INTEGER}, `plan_id`=#{gluRecordNew.planId, jdbcType=INTEGER},
+                                 `date`=#{gluRecordNew.date, jdbcType=DATE}, `value`=#{gluRecordNew.value, jdbcType=REAL}
+        where (`user_id` = if(#{gluRecordOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluRecordOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{gluRecordOld.planId, jdbcType=INTEGER}=-1, `plan_id`, #{gluRecordOld.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{gluRecordOld.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`value` = if(#{gluRecordOld.value, jdbcType=REAL}=-1, `value`, #{gluRecordOld.value, jdbcType=REAL}) or isnull(`value`))
+    </update>
+
+    <delete id="deleteGluRecord" parameterType="com.glu.wxApp.domain.GluRecord">
+        DELETE FROM `glu_record`
+        where (`user_id` = if(#{gluRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{gluRecord.planId, jdbcType=INTEGER}=-1, `plan_id`, #{gluRecord.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{gluRecord.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`value` = if(#{gluRecord.value, jdbcType=REAL}=-1, `value`, #{gluRecord.value, jdbcType=REAL}) or isnull(`value`))
+    </delete>
+
+</mapper>

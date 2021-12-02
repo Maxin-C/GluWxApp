@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.FoodRecordMapper">
+
+    <insert id="addFoodRecord" parameterType="com.glu.wxApp.domain.FoodRecord" useGeneratedKeys="true">
+        INSERT INTO `food_record`
+            (`user_id`, `memo`, `datetime`, `meal_type`)
+        VALUES
+        (#{foodRecord.userId, jdbcType=INTEGER}, #{foodRecord.memo, jdbcType=VARCHAR}, #{foodRecord.datetime, jdbcType=DATE}, #{foodRecord.mealType, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findFoodRecord" parameterType="com.glu.wxApp.domain.FoodRecord" resultType="com.glu.wxApp.domain.FoodRecord">
+        SELECT * FROM `food_record`
+        where (`user_id` = if(#{foodRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`memo` = ifnull(#{foodRecord.memo, jdbcType=VARCHAR}, `memo`) or isnull(`memo`))
+          and (`datetime` = ifnull(#{foodRecord.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+          and (`meal_type` = if(#{foodRecord.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecord.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+    </select>
+
+    <update id="updateFoodRecord" parameterType="com.glu.wxApp.domain.FoodRecord">
+        UPDATE `food_record` set
+                                 `user_id`=#{foodRecordNew.userId, jdbcType=INTEGER}, `memo`=#{foodRecordNew.memo, jdbcType=VARCHAR},
+                                 `datetime`=#{foodRecordNew.datetime, jdbcType=DATE}, `meal_type`=#{foodRecordNew.mealType, jdbcType=INTEGER}
+        where (`user_id` = if(#{foodRecordOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodRecordOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`memo` = ifnull(#{foodRecordOld.memo, jdbcType=VARCHAR}, `memo`) or isnull(`memo`))
+          and (`datetime` = ifnull(#{foodRecordOld.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+          and (`meal_type` = if(#{foodRecordOld.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecordOld.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+    </update>
+
+    <delete id="deleteFoodRecord" parameterType="com.glu.wxApp.domain.FoodRecord">
+        DELETE FROM `food_record`
+        where (`user_id` = if(#{foodRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`memo` = ifnull(#{foodRecord.memo, jdbcType=VARCHAR}, `memo`) or isnull(`memo`))
+          and (`datetime` = ifnull(#{foodRecord.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+          and (`meal_type` = if(#{foodRecord.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecord.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+    </delete>
+
+</mapper>

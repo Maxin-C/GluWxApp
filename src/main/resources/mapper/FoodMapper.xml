@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.FoodMapper">
+
+    <insert id="addFood" parameterType="com.glu.wxApp.domain.Food" useGeneratedKeys="true">
+        INSERT INTO `food`
+            (`name`, `type`, `energy`, `protein`, `fat`, `cho`, `na`)
+        VALUES
+        (#{food.name, jdbcType=VARCHAR}, #{food.type, jdbcType=INTEGER}, #{food.energy, jdbcType=REAL},
+         #{food.protein, jdbcType=REAL}, #{food.fat, jdbcType=REAL}, #{food.cho, jdbcType=REAL}, #{food.na, jdbcType=REAL})
+    </insert>
+
+    <select id="findFood" parameterType="com.glu.wxApp.domain.Food" resultType="com.glu.wxApp.domain.Food">
+        SELECT * FROM `food`
+        where (`name` = ifnull(#{food.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`type` = if(#{food.type, jdbcType=INTEGER}=-1, `type`, #{food.type, jdbcType=INTEGER}) or isnull(`type`))
+          and (`energy` = if(#{food.energy, jdbcType=REAL}=-1, `energy`, #{food.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{food.protein, jdbcType=REAL}=-1, `protein`, #{food.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{food.fat, jdbcType=REAL}=-1, `fat`, #{food.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{food.cho, jdbcType=REAL}=-1, `cho`, #{food.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{food.na, jdbcType=REAL}=-1, `na`, #{food.na, jdbcType=REAL}) or isnull(`na`))
+    </select>
+
+    <update id="updateFood" parameterType="com.glu.wxApp.domain.Food">
+        UPDATE `food` set
+                                 `name`=#{foodNew.name, jdbcType=VARCHAR}, `type`=#{foodNew.type, jdbcType=INTEGER},
+                                 `energy`=#{foodNew.energy, jdbcType=REAL}, `protein`=#{foodNew.protein, jdbcType=REAL},
+                                 `fat`=#{foodNew.fat, jdbcType=REAL}, `cho`=#{foodNew.cho, jdbcType=REAL},
+                                 `na`=#{foodNew.na, jdbcType=REAL}
+        where (`name` = ifnull(#{foodOld.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`type` = if(#{foodOld.type, jdbcType=INTEGER}=-1, `type`, #{foodOld.type, jdbcType=INTEGER}) or isnull(`type`))
+          and (`energy` = if(#{foodOld.energy, jdbcType=REAL}=-1, `energy`, #{foodOld.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{foodOld.protein, jdbcType=REAL}=-1, `protein`, #{foodOld.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{foodOld.fat, jdbcType=REAL}=-1, `fat`, #{foodOld.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{foodOld.cho, jdbcType=REAL}=-1, `cho`, #{foodOld.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{foodOld.na, jdbcType=REAL}=-1, `na`, #{foodOld.na, jdbcType=REAL}) or isnull(`na`))
+    </update>
+
+    <delete id="deleteFood" parameterType="com.glu.wxApp.domain.Food">
+        DELETE FROM `food`
+        where (`name` = ifnull(#{food.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`type` = if(#{food.type, jdbcType=INTEGER}=-1, `type`, #{food.type, jdbcType=INTEGER}) or isnull(`type`))
+          and (`energy` = if(#{food.energy, jdbcType=REAL}=-1, `energy`, #{food.energy, jdbcType=REAL}) or isnull(`energy`))
+          and (`protein` = if(#{food.protein, jdbcType=REAL}=-1, `protein`, #{food.protein, jdbcType=REAL}) or isnull(`protein`))
+          and (`fat` = if(#{food.fat, jdbcType=REAL}=-1, `fat`, #{food.fat, jdbcType=REAL}) or isnull(`fat`))
+          and (`cho` = if(#{food.cho, jdbcType=REAL}=-1, `cho`, #{food.cho, jdbcType=REAL}) or isnull(`cho`))
+          and (`na` = if(#{food.na, jdbcType=REAL}=-1, `na`, #{food.na, jdbcType=REAL}) or isnull(`na`))
+    </delete>
+
+</mapper>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.DoctorChatMapper">
+
+    <insert id="addDoctorChat" parameterType="com.glu.wxApp.domain.DoctorChat" useGeneratedKeys="true">
+        INSERT INTO `doctor_chat`
+            (`sent`, `received`, `content`, `datetime`)
+        VALUES
+               (#{doctorChat.sent, jdbcType=INTEGER}, #{doctorChat.received, jdbcType=INTEGER}, #{doctorChat.content, jdbcType=VARCHAR}, #{doctorChat.datetime, jdbcType=DATE})
+    </insert>
+
+    <select id="findDoctorChat" parameterType="com.glu.wxApp.domain.DoctorChat" resultType="com.glu.wxApp.domain.DoctorChat">
+        SELECT * FROM `doctor_chat`
+            where (`sent` = if(#{doctorChat.sent, jdbcType=INTEGER}=-1, `sent`, #{doctorChat.sent, jdbcType=INTEGER}) or isnull(`sent`))
+              and (`received` = if(#{doctorChat.received, jdbcType=INTEGER}=-1, `received`, #{doctorChat.received, jdbcType=INTEGER}) or isnull(`received`))
+              and (`content` = ifnull(#{doctorChat.content, jdbcType=VARCHAR}, `content`) or isnull(`content`))
+              and (`datetime` = ifnull(#{doctorChat.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+    </select>
+
+    <update id="updateDoctorChat" parameterType="com.glu.wxApp.domain.DoctorChat">
+        UPDATE `doctor_chat` set
+            `sent`=#{doctorChatNew.sent, jdbcType=INTEGER}, `received`=#{doctorChatNew.received, jdbcType=INTEGER},
+                `content`=#{doctorChatNew.content, jdbcType=VARCHAR}, `datetime`=#{doctorChatNew.datetime, jdbcType=DATE}
+        where (`sent` = if(#{doctorChatOld.sent, jdbcType=INTEGER}=-1, `sent`, #{doctorChatOld.sent, jdbcType=INTEGER}) or isnull(`sent`))
+          and (`received` = if(#{doctorChatOld.received, jdbcType=INTEGER}=-1, `received`, #{doctorChatOld.received, jdbcType=INTEGER}) or isnull(`received`))
+          and (`content` = ifnull(#{doctorChatOld.content, jdbcType=VARCHAR}, `content`) or isnull(`content`))
+          and (`datetime` = ifnull(#{doctorChatOld.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+    </update>
+
+    <delete id="deleteDoctorChat" parameterType="com.glu.wxApp.domain.DoctorChat">
+        DELETE FROM `doctor_chat`
+        where (`sent` = if(#{doctorChat.sent, jdbcType=INTEGER}=-1, `sent`, #{doctorChat.sent, jdbcType=INTEGER}) or isnull(`sent`))
+          and (`received` = if(#{doctorChat.received, jdbcType=INTEGER}=-1, `received`, #{doctorChat.received, jdbcType=INTEGER}) or isnull(`received`))
+          and (`content` = ifnull(#{doctorChat.content, jdbcType=VARCHAR}, `content`) or isnull(`content`))
+          and (`datetime` = ifnull(#{doctorChat.datetime, jdbcType=DATE}, `datetime`) or isnull(`datetime`))
+    </delete>
+
+</mapper>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.DoctorMapper">
+
+    <insert id="addDoctor" parameterType="com.glu.wxApp.domain.Doctor" useGeneratedKeys="true">
+        INSERT INTO `doctor`
+            (`name`, `phone`)
+        VALUES
+               (#{doctor.name, jdbcType=VARCHAR}, #{doctor.phone, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findDoctor" parameterType="com.glu.wxApp.domain.Doctor" resultType="com.glu.wxApp.domain.Doctor">
+        SELECT * FROM `doctor`
+            where (`name` = ifnull(#{doctor.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+              and (`phone` = ifnull(#{doctor.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+    </select>
+
+    <update id="updateDoctor" parameterType="com.glu.wxApp.domain.Doctor">
+        UPDATE `doctor` set
+            `name`=#{doctorNew.name, jdbcType=VARCHAR}, `phone`=#{doctorNew.phone, jdbcType=VARCHAR}
+        where (`name` = ifnull(#{doctorOld.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`phone` = ifnull(#{doctorOld.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+    </update>
+
+    <delete id="deleteDoctor" parameterType="com.glu.wxApp.domain.Doctor">
+        DELETE FROM `doctor`
+        where (`name` = ifnull(#{doctor.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`phone` = ifnull(#{doctor.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+    </delete>
+
+</mapper>
