@@ -225,9 +225,10 @@ public class ParseFunction {
         FoodRecommend foodRecommend = new FoodRecommend();
 
         if (flag){
-            if (foodRecommendM.get("foodId") != null && foodRecommendM.get("name") != null && foodRecommendM.get("weight") != null &&
-                    foodRecommendM.get("mealType") != null && foodRecommendM.get("suit") != null && foodRecommendM.get("package") != null &&
-                    foodRecommendM.get("comment") != null){
+            if (foodRecommendM.get("dishName") != null && foodRecommendM.get("foodId") != null && foodRecommendM.get("name") != null
+                    && foodRecommendM.get("weight") != null && foodRecommendM.get("mealType") != null && foodRecommendM.get("suit") != null
+                    && foodRecommendM.get("package") != null && foodRecommendM.get("comment") != null){
+                foodRecommend.setDishName((String) foodRecommendM.get("dishName"));
                 foodRecommend.setFoodId((int) (double) foodRecommendM.get("foodId"));
                 foodRecommend.setName((String) foodRecommendM.get("name"));
                 foodRecommend.setWeight((String) foodRecommendM.get("weight"));
@@ -239,6 +240,8 @@ public class ParseFunction {
                 System.out.println("缺少参数");
             }
         }else {
+            foodRecommend.setDishName((String) foodRecommendM.get("dishName"));
+
             if (foodRecommendM.get("foodId") != null){
                 foodRecommend.setFoodId((int) (double) foodRecommendM.get("foodId"));
             }
