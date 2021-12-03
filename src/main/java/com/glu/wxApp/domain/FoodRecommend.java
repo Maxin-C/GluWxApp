@@ -3,6 +3,8 @@ package com.glu.wxApp.domain;
 public class FoodRecommend {
     private int foodId = -1;
 
+    private String dishName;
+
     private String name;
 
     private String weight;
@@ -15,6 +17,14 @@ public class FoodRecommend {
     private int packages = -1;
 
     private String comment;
+
+    public String getDishName() {
+        return dishName;
+    }
+
+    public void setDishName(String dishName) {
+        this.dishName = dishName;
+    }
 
     public int getFoodId() {
         return foodId;
