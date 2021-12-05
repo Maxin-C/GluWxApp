@@ -32,4 +32,9 @@ public class UserAuthController {
     @RequestMapping("delete")
     public void deleteUserAuth(@RequestBody String userAuthInfo) throws ParseException {
         userAuthService.deleteUserAuth(userAuthInfo);}
+
+    @RequestMapping("addReturnId")
+    public List<UserAuth> addReturnId(@RequestBody String userAuthInfo) throws ParseException {
+        userAuthService.addUserAuth(userAuthInfo);
+        return userAuthService.findUserAuth(userAuthInfo);}
 }
