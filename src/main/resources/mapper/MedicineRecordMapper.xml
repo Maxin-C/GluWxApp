@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.MedicineRecordMapper">
+
+    <insert id="addMedicineRecord" parameterType="com.glu.wxApp.domain.MedicineRecord" useGeneratedKeys="true">
+        INSERT INTO `medicine_record`
+            (`user_id`, `plan_id`, `date`, `did`)
+        VALUES
+        (#{medicineRecord.userId, jdbcType=INTEGER}, #{medicineRecord.planId, jdbcType=INTEGER}, #{medicineRecord.date, jdbcType=DATE}, #{medicineRecord.did, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findMedicineRecord" parameterType="com.glu.wxApp.domain.MedicineRecord" resultType="com.glu.wxApp.domain.MedicineRecord">
+        SELECT * FROM `medicine_record`
+        where (`user_id` = if(#{medicineRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicineRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{medicineRecord.planId, jdbcType=INTEGER}=-1, `plan_id`, #{medicineRecord.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{medicineRecord.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`did` = if(#{medicineRecord.did, jdbcType=INTEGER}=-1, `did`, #{medicineRecord.did, jdbcType=INTEGER}) or isnull(`did`))
+    </select>
+
+    <update id="updateMedicineRecord" parameterType="com.glu.wxApp.domain.MedicineRecord">
+        UPDATE `medicine_record` set
+                                 `user_id`=#{medicineRecordNew.userId, jdbcType=INTEGER}, `plan_id`=#{medicineRecordNew.planId, jdbcType=INTEGER},
+                                 `date`=#{medicineRecordNew.date, jdbcType=DATE}, `did`=#{medicineRecordNew.did, jdbcType=INTEGER}
+        where (`user_id` = if(#{medicineRecordOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicineRecordOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{medicineRecordOld.planId, jdbcType=INTEGER}=-1, `plan_id`, #{medicineRecordOld.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{medicineRecordOld.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`did` = if(#{medicineRecordOld.did, jdbcType=INTEGER}=-1, `did`, #{medicineRecordOld.did, jdbcType=INTEGER}) or isnull(`did`))
+    </update>
+
+    <delete id="deleteMedicineRecord" parameterType="com.glu.wxApp.domain.MedicineRecord">
+        DELETE FROM `medicine_record`
+        where (`user_id` = if(#{medicineRecord.userId, jdbcType=INTEGER}=-1, `user_id`, #{medicineRecord.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`plan_id` = if(#{medicineRecord.planId, jdbcType=INTEGER}=-1, `plan_id`, #{medicineRecord.planId, jdbcType=INTEGER}) or isnull(`plan_id`))
+          and (`date` = ifnull(#{medicineRecord.date, jdbcType=DATE}, `date`) or isnull(`date`))
+          and (`did` = if(#{medicineRecord.did, jdbcType=INTEGER}=-1, `did`, #{medicineRecord.did, jdbcType=INTEGER}) or isnull(`did`))
+    </delete>
+
+</mapper>

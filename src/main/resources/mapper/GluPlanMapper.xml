@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.GluPlanMapper">
+
+    <insert id="addGluPlan" parameterType="com.glu.wxApp.domain.GluPlan" useGeneratedKeys="true">
+        INSERT INTO `glu_plan`
+            (`user_id`, `target`, `time`, `week_fre`, `day_fre`)
+        VALUES
+        (#{gluPlan.userId, jdbcType=INTEGER}, #{gluPlan.target, jdbcType=REAL}, #{gluPlan.time, jdbcType=INTEGER},
+         #{gluPlan.weekFre, jdbcType=INTEGER}, #{gluPlan.dayFre, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findGluPlan" parameterType="com.glu.wxApp.domain.GluPlan" resultType="com.glu.wxApp.domain.GluPlan">
+        SELECT * FROM `glu_plan`
+        where (`user_id` = if(#{gluPlan.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluPlan.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`target` = if(#{gluPlan.target, jdbcType=REAL}=-1, `target`, #{gluPlan.target, jdbcType=REAL}) or isnull(`target`))
+          and (`time` = if(#{gluPlan.time, jdbcType=INTEGER}=-1, `time`, #{gluPlan.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{gluPlan.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{gluPlan.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{gluPlan.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{gluPlan.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </select>
+
+    <update id="updateGluPlan" parameterType="com.glu.wxApp.domain.GluPlan">
+        UPDATE `glu_plan` set
+                                 `user_id`=#{gluPlanNew.userId, jdbcType=INTEGER}, `target`=#{gluPlanNew.target, jdbcType=REAL},
+                                 `time`=#{gluPlanNew.time, jdbcType=INTEGER}, `week_fre`=#{gluPlanNew.weekFre, jdbcType=INTEGER},
+                                 `day_fre`=#{gluPlanNew.dayFre, jdbcType=INTEGER}
+        where (`user_id` = if(#{gluPlanOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluPlanOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`target` = if(#{gluPlanOld.target, jdbcType=REAL}=-1, `target`, #{gluPlanOld.target, jdbcType=REAL}) or isnull(`target`))
+          and (`time` = if(#{gluPlanOld.time, jdbcType=INTEGER}=-1, `time`, #{gluPlanOld.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{gluPlanOld.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{gluPlanOld.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{gluPlanOld.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{gluPlanOld.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </update>
+
+    <delete id="deleteGluPlan" parameterType="com.glu.wxApp.domain.GluPlan">
+        DELETE FROM `glu_plan`
+        where (`user_id` = if(#{gluPlan.userId, jdbcType=INTEGER}=-1, `user_id`, #{gluPlan.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`target` = if(#{gluPlan.target, jdbcType=REAL}=-1, `target`, #{gluPlan.target, jdbcType=REAL}) or isnull(`target`))
+          and (`time` = if(#{gluPlan.time, jdbcType=INTEGER}=-1, `time`, #{gluPlan.time, jdbcType=INTEGER}) or isnull(`time`))
+          and (`week_fre` = if(#{gluPlan.weekFre, jdbcType=INTEGER}=-1, `week_fre`, #{gluPlan.weekFre, jdbcType=INTEGER}) or isnull(`week_fre`))
+          and (`day_fre` = if(#{gluPlan.dayFre, jdbcType=INTEGER}=-1, `day_fre`, #{gluPlan.dayFre, jdbcType=INTEGER}) or isnull(`day_fre`))
+    </delete>
+
+</mapper>

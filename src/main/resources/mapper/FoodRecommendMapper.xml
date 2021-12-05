@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.FoodRecommendMapper">
+
+    <insert id="addFoodRecommend" parameterType="com.glu.wxApp.domain.FoodRecommend" useGeneratedKeys="true">
+        INSERT INTO `food_recommend`
+            (`dish_name`, `food_id`, `name`, `weight`, `meal_type`, `suit`, `package`, `comment`)
+        VALUES
+        (#{foodRecommend.dishName, jdbcType=VARCHAR}, #{foodRecommend.foodId, jdbcType=INTEGER}, #{foodRecommend.name, jdbcType=VARCHAR},
+         #{foodRecommend.weight, jdbcType=VARCHAR}, #{foodRecommend.mealType, jdbcType=INTEGER}, #{foodRecommend.suit, jdbcType=INTEGER},
+         #{foodRecommend.packages, jdbcType=INTEGER}, #{foodRecommend.comment, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findFoodRecommend" parameterType="com.glu.wxApp.domain.FoodRecommend" resultType="com.glu.wxApp.domain.FoodRecommend">
+        SELECT * FROM `food_recommend`
+        where (`dish_name` = ifnull(#{foodRecommend.dishName, jdbcType=VARCHAR}, `dish_name`) or isnull(`dish_name`))
+          and (`food_id` = if(#{foodRecommend.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodRecommend.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`name` = ifnull(#{foodRecommend.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`weight` = ifnull(#{foodRecommend.weight, jdbcType=VARCHAR}, `weight`) or isnull(`weight`))
+          and (`meal_type` = if(#{foodRecommend.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecommend.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`suit` = if(#{foodRecommend.suit, jdbcType=INTEGER}=-1, `suit`, #{foodRecommend.suit, jdbcType=INTEGER}) or isnull(`suit`))
+          and (`package` = if(#{foodRecommend.packages, jdbcType=INTEGER}=-1, `package`, #{foodRecommend.packages, jdbcType=INTEGER}) or isnull(`package`))
+          and (`comment` = ifnull(#{foodRecommend.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+    </select>
+
+    <update id="updateFoodRecommend" parameterType="com.glu.wxApp.domain.FoodRecommend">
+        UPDATE `food_recommend` set
+                                 `food_id`=#{foodRecommendNew.foodId, jdbcType=INTEGER}, `name`=#{foodRecommendNew.name, jdbcType=VARCHAR},
+                                 `weight`=#{foodRecommendNew.weight, jdbcType=VARCHAR}, `meal_type`=#{foodRecommendNew.mealType, jdbcType=INTEGER},
+                                 `suit`=#{foodRecommendNew.suit, jdbcType=INTEGER}, `name`=#{foodRecommendNew.name, jdbcType=VARCHAR},
+                                 `comment`=#{foodRecommendNew.comment, jdbcType=VARCHAR}, `dish_name`=#{foodRecommendNew.dishName, jdbcType=VARCHAR}
+        where (`food_id` = if(#{foodRecommendOld.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodRecommendOld.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`name` = ifnull(#{foodRecommendOld.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`weight` = ifnull(#{foodRecommendOld.weight, jdbcType=VARCHAR}, `weight`) or isnull(`weight`))
+          and (`meal_type` = if(#{foodRecommendOld.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecommendOld.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`suit` = if(#{foodRecommendOld.suit, jdbcType=INTEGER}=-1, `suit`, #{foodRecommendOld.suit, jdbcType=INTEGER}) or isnull(`suit`))
+          and (`package` = if(#{foodRecommendOld.packages, jdbcType=INTEGER}=-1, `package`, #{foodRecommendOld.packages, jdbcType=INTEGER}) or isnull(`package`))
+          and (`comment` = ifnull(#{foodRecommendOld.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+          and (`dish_name` = ifnull(#{foodRecommendOld.dishName, jdbcType=VARCHAR}, `dish_name`) or isnull(`dish_name`))
+    </update>
+
+    <delete id="deleteFoodRecommend" parameterType="com.glu.wxApp.domain.FoodRecommend">
+        DELETE FROM `food_recommend`
+        where (`dish_name` = ifnull(#{foodRecommend.dishName, jdbcType=VARCHAR}, `dish_name`) or isnull(`dish_name`))
+          and (`food_id` = if(#{foodRecommend.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodRecommend.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`name` = ifnull(#{foodRecommend.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`weight` = ifnull(#{foodRecommend.weight, jdbcType=VARCHAR}, `weight`) or isnull(`weight`))
+          and (`meal_type` = if(#{foodRecommend.mealType, jdbcType=INTEGER}=-1, `meal_type`, #{foodRecommend.mealType, jdbcType=INTEGER}) or isnull(`meal_type`))
+          and (`suit` = if(#{foodRecommend.suit, jdbcType=INTEGER}=-1, `suit`, #{foodRecommend.suit, jdbcType=INTEGER}) or isnull(`suit`))
+          and (`package` = if(#{foodRecommend.packages, jdbcType=INTEGER}=-1, `package`, #{foodRecommend.packages, jdbcType=INTEGER}) or isnull(`package`))
+          and (`comment` = ifnull(#{foodRecommend.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+    </delete>
+
+</mapper>

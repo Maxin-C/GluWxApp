@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.SportUserMapper">
+
+    <insert id="addSportUser" parameterType="com.glu.wxApp.domain.SportUser" useGeneratedKeys="true">
+        INSERT INTO `sport_user`
+            (`user_id`, `sport_id`, `weekday`, `comment`)
+        VALUES
+        (#{sportUser.userId, jdbcType=INTEGER}, #{sportUser.sportId, jdbcType=INTEGER}, #{sportUser.weekday, jdbcType=INTEGER}, #{sportUser.comment, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findSportUser" parameterType="com.glu.wxApp.domain.SportUser" resultType="com.glu.wxApp.domain.SportUser">
+        SELECT * FROM `sport_user`
+        where (`user_id` = if(#{sportUser.userId, jdbcType=INTEGER}=-1, `user_id`, #{sportUser.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`sport_id` = if(#{sportUser.sportId, jdbcType=INTEGER}=-1, `sport_id`, #{sportUser.sportId, jdbcType=INTEGER}) or isnull(`sport_id`))
+          and (`weekday` = if(#{sportUser.weekday, jdbcType=INTEGER}=-1, `weekday`, #{sportUser.weekday, jdbcType=INTEGER}) or isnull(`weekday`))
+          and (`comment` = ifnull(#{sportUser.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+    </select>
+
+    <update id="updateSportUser" parameterType="com.glu.wxApp.domain.SportUser">
+        UPDATE `sport_user` set
+                                 `user_id`=#{sportUserNew.userId, jdbcType=INTEGER}, `sport_id`=#{sportUserNew.sportId, jdbcType=INTEGER},
+                                 `weekday`=#{sportUserNew.weekday, jdbcType=INTEGER}, `comment`=#{sportUserNew.comment, jdbcType=VARCHAR}
+        where (`user_id` = if(#{sportUserOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{sportUserOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`sport_id` = if(#{sportUserOld.sportId, jdbcType=INTEGER}=-1, `sport_id`, #{sportUserOld.sportId, jdbcType=INTEGER}) or isnull(`sport_id`))
+          and (`weekday` = if(#{sportUserOld.weekday, jdbcType=INTEGER}=-1, `weekday`, #{sportUserOld.weekday, jdbcType=INTEGER}) or isnull(`weekday`))
+          and (`comment` = ifnull(#{sportUserOld.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+    </update>
+
+    <delete id="deleteSportUser" parameterType="com.glu.wxApp.domain.SportUser">
+        DELETE FROM `sport_user`
+        where (`user_id` = if(#{sportUser.userId, jdbcType=INTEGER}=-1, `user_id`, #{sportUser.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`sport_id` = if(#{sportUser.sportId, jdbcType=INTEGER}=-1, `sport_id`, #{sportUser.sportId, jdbcType=INTEGER}) or isnull(`sport_id`))
+          and (`weekday` = if(#{sportUser.weekday, jdbcType=INTEGER}=-1, `weekday`, #{sportUser.weekday, jdbcType=INTEGER}) or isnull(`weekday`))
+          and (`comment` = ifnull(#{sportUser.comment, jdbcType=VARCHAR}, `comment`) or isnull(`comment`))
+    </delete>
+
+</mapper>

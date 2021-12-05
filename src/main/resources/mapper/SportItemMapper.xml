@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.SportItemMapper">
+
+    <insert id="addSportItem" parameterType="com.glu.wxApp.domain.SportItem" useGeneratedKeys="true">
+        INSERT INTO `sport_item`
+            (`name`, `time_type`, `type`)
+        VALUES
+        (#{sportItem.name, jdbcType=VARCHAR}, #{sportItem.timeType, jdbcType=INTEGER}, #{sportItem.type, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findSportItem" parameterType="com.glu.wxApp.domain.SportItem" resultType="com.glu.wxApp.domain.SportItem">
+        SELECT * FROM `sport_item`
+        where (`name` = ifnull(#{sportItem.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`time_type` = if(#{sportItem.timeType, jdbcType=INTEGER}=-1, `time_type`, #{sportItem.timeType, jdbcType=INTEGER}) or isnull(`time_type`))
+          and (`type` = if(#{sportItem.type, jdbcType=INTEGER}=-1, `type`, #{sportItem.type, jdbcType=INTEGER}) or isnull(`type`))
+    </select>
+
+    <update id="updateSportItem" parameterType="com.glu.wxApp.domain.SportItem">
+        UPDATE `sport_item` set
+                                 `name`=#{sportItemNew.name, jdbcType=VARCHAR}, `time_type`=#{sportItemNew.timeType, jdbcType=INTEGER},
+                                 `type`=#{sportItemNew.type, jdbcType=INTEGER}
+        where (`name` = ifnull(#{sportItemOld.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`time_type` = if(#{sportItemOld.timeType, jdbcType=INTEGER}=-1, `time_type`, #{sportItemOld.timeType, jdbcType=INTEGER}) or isnull(`time_type`))
+          and (`type` = if(#{sportItemOld.type, jdbcType=INTEGER}=-1, `type`, #{sportItemOld.type, jdbcType=INTEGER}) or isnull(`type`))
+    </update>
+
+    <delete id="deleteSportItem" parameterType="com.glu.wxApp.domain.SportItem">
+        DELETE FROM `sport_item`
+        where (`name` = ifnull(#{sportItem.name, jdbcType=VARCHAR}, `name`) or isnull(`name`))
+          and (`time_type` = if(#{sportItem.timeType, jdbcType=INTEGER}=-1, `time_type`, #{sportItem.timeType, jdbcType=INTEGER}) or isnull(`time_type`))
+          and (`type` = if(#{sportItem.type, jdbcType=INTEGER}=-1, `type`, #{sportItem.type, jdbcType=INTEGER}) or isnull(`type`))
+    </delete>
+
+</mapper>

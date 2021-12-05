@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.UserAuthMapper">
+
+    <insert id="addUserAuth" parameterType="com.glu.wxApp.domain.UserAuth" useGeneratedKeys="true">
+        INSERT INTO `user_auth`
+            (`phone`, `password`, `register_time`, `last_login_time`)
+        VALUES
+        (#{userAuth.phone, jdbcType=VARCHAR}, #{userAuth.password, jdbcType=VARCHAR}, #{userAuth.registerTime, jdbcType=DATE}, #{userAuth.lastLoginTime, jdbcType=DATE})
+    </insert>
+
+    <select id="findUserAuth" parameterType="com.glu.wxApp.domain.UserAuth" resultType="com.glu.wxApp.domain.UserAuth">
+        SELECT * FROM `user_auth`
+        where (`phone` = ifnull(#{userAuth.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+          and (`password` = ifnull(#{userAuth.password, jdbcType=VARCHAR}, `password`) or isnull(`password`))
+          and (`register_time` = ifnull(#{userAuth.registerTime, jdbcType=DATE}, `register_time`) or isnull(`register_time`))
+          and (`last_login_time` = ifnull(#{userAuth.lastLoginTime, jdbcType=DATE}, `last_login_time`) or isnull(`last_login_time`))
+    </select>
+
+    <update id="updateUserAuth" parameterType="com.glu.wxApp.domain.UserAuth">
+        UPDATE `user_auth` set
+                                 `phone`=#{userAuthNew.phone, jdbcType=VARCHAR}, `password`=#{userAuthNew.password, jdbcType=VARCHAR},
+                                 `register_time`=#{userAuthNew.registerTime, jdbcType=DATE}, `last_login_time`=#{userAuthNew.lastLoginTime, jdbcType=DATE}
+        where (`phone` = ifnull(#{userAuthOld.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+          and (`password` = ifnull(#{userAuthOld.password, jdbcType=VARCHAR}, `password`) or isnull(`password`))
+          and (`register_time` = ifnull(#{userAuthOld.registerTime, jdbcType=DATE}, `register_time`) or isnull(`register_time`))
+          and (`last_login_time` = ifnull(#{userAuthOld.lastLoginTime, jdbcType=DATE}, `last_login_time`) or isnull(`last_login_time`))
+    </update>
+
+    <delete id="deleteUserAuth" parameterType="com.glu.wxApp.domain.UserAuth">
+        DELETE FROM `user_auth`
+        where (`phone` = ifnull(#{userAuth.phone, jdbcType=VARCHAR}, `phone`) or isnull(`phone`))
+          and (`password` = ifnull(#{userAuth.password, jdbcType=VARCHAR}, `password`) or isnull(`password`))
+          and (`register_time` = ifnull(#{userAuth.registerTime, jdbcType=DATE}, `register_time`) or isnull(`register_time`))
+          and (`last_login_time` = ifnull(#{userAuth.lastLoginTime, jdbcType=DATE}, `last_login_time`) or isnull(`last_login_time`))
+    </delete>
+
+</mapper>

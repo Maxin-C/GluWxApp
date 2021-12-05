@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.FoodDetailMapper">
+
+    <insert id="addFoodDetail" parameterType="com.glu.wxApp.domain.FoodDetail" useGeneratedKeys="true">
+        INSERT INTO `food_detail`
+            (`record_id`, `food_id`, `weight`, `food_name`, `food_type_id`, `user_id`)
+        VALUES
+        (#{foodDetail.recordId, jdbcType=INTEGER}, #{foodDetail.foodId, jdbcType=INTEGER}, #{foodDetail.weight, jdbcType=REAL},
+         #{foodDetail.foodName, jdbcType=VARCHAR}, #{foodDetail.foodTypeId, jdbcType=INTEGER}, #{foodDetail.userId, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findFoodDetail" parameterType="com.glu.wxApp.domain.FoodDetail" resultType="com.glu.wxApp.domain.FoodDetail">
+        SELECT * FROM `food_detail`
+        where (`record_id` = if(#{foodDetail.recordId, jdbcType=INTEGER}=-1, `record_id`, #{foodDetail.recordId, jdbcType=INTEGER}) or isnull(`record_id`))
+          and (`food_id` = if(#{foodDetail.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodDetail.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`weight` = if(#{foodDetail.weight, jdbcType=REAL}=-1, `weight`, #{foodDetail.weight, jdbcType=REAL}) or isnull(`weight`))
+          and (`food_name` = ifnull(#{foodDetail.foodName, jdbcType=VARCHAR}, `food_name`) or isnull(`food_name`))
+          and (`food_type_id` = if(#{foodDetail.foodTypeId, jdbcType=INTEGER}=-1, `food_type_id`, #{foodDetail.foodTypeId, jdbcType=INTEGER}) or isnull(`food_type_id`))
+          and (`user_id` = if(#{foodDetail.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodDetail.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+    </select>
+
+    <update id="updateFoodDetail" parameterType="com.glu.wxApp.domain.FoodDetail">
+        UPDATE `food_detail` set
+                                 `record_id`=#{foodDetailNew.recordId, jdbcType=INTEGER}, `food_id`=#{foodDetailNew.foodId, jdbcType=INTEGER},
+                                 `weight`=#{foodDetailNew.weight, jdbcType=REAL}, `food_name`= #{foodDetailNew.foodName, jdbcType=VARCHAR},
+                                 `food_type_id`=#{foodDetailNew.foodTypeId, jdbcType=INTEGER}, `user_id`=#{foodDetailNew.userId, jdbcType=INTEGER}
+        where (`record_id` = if(#{foodDetailOld.recordId, jdbcType=INTEGER}=-1, `record_id`, #{foodDetailOld.recordId, jdbcType=INTEGER}) or isnull(`record_id`))
+          and (`food_id` = if(#{foodDetailOld.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodDetailOld.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`weight` = if(#{foodDetailOld.weight, jdbcType=REAL}=-1, `weight`, #{foodDetailOld.weight, jdbcType=REAL}) or isnull(`weight`))
+          and (`food_name` = ifnull(#{foodDetailOld.foodName, jdbcType=VARCHAR}, `food_name`) or isnull(`food_name`))
+          and (`food_type_id` = if(#{foodDetailOld.foodTypeId, jdbcType=INTEGER}=-1, `food_type_id`, #{foodDetailOld.foodTypeId, jdbcType=INTEGER}) or isnull(`food_type_id`))
+          and (`user_id` = if(#{foodDetailOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodDetailOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+    </update>
+
+    <delete id="deleteFoodDetail" parameterType="com.glu.wxApp.domain.FoodDetail">
+        DELETE FROM `food_detail`
+        where (`record_id` = if(#{foodDetail.recordId, jdbcType=INTEGER}=-1, `record_id`, #{foodDetail.recordId, jdbcType=INTEGER}) or isnull(`record_id`))
+          and (`food_id` = if(#{foodDetail.foodId, jdbcType=INTEGER}=-1, `food_id`, #{foodDetail.foodId, jdbcType=INTEGER}) or isnull(`food_id`))
+          and (`weight` = if(#{foodDetail.weight, jdbcType=REAL}=-1, `weight`, #{foodDetail.weight, jdbcType=REAL}) or isnull(`weight`))
+          and (`food_name` = ifnull(#{foodDetail.foodName, jdbcType=VARCHAR}, `food_name`) or isnull(`food_name`))
+          and (`food_type_id` = if(#{foodDetail.foodTypeId, jdbcType=INTEGER}=-1, `food_type_id`, #{foodDetail.foodTypeId, jdbcType=INTEGER}) or isnull(`food_type_id`))
+          and (`user_id` = if(#{foodDetail.userId, jdbcType=INTEGER}=-1, `user_id`, #{foodDetail.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+    </delete>
+
+</mapper>

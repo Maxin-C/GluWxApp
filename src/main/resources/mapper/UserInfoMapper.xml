@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.UserInfoMapper">
+
+    <insert id="addUserInfo" parameterType="com.glu.wxApp.domain.UserInfo" useGeneratedKeys="true">
+        INSERT INTO `user_info`
+            (`user_id`, `birth`, `sex`, `height`, `weight`, `bmi`, `intensity`, `level`, `is_condition_1`, `is_condition_2`, `is_condition_3`,
+             `is_condition_4`, `is_condition_5`, `is_condition_6`, `is_condition_7`, `is_condition_8`, `is_condition_9`, `is_condition_10`,
+             `is_condition_11`, `is_condition_12`, `is_condition_13`)
+        VALUES
+        (#{userInfo.userId, jdbcType=INTEGER}, #{userInfo.birth, jdbcType=DATE}, #{userInfo.sex, jdbcType=INTEGER}, #{userInfo.height, jdbcType=DOUBLE},
+         #{userInfo.weight, jdbcType=DOUBLE}, #{userInfo.bmi, jdbcType=DOUBLE}, #{userInfo.intensity, jdbcType=INTEGER}, #{userInfo.level, jdbcType=INTEGER},
+         #{userInfo.isCondition1, jdbcType=INTEGER}, #{userInfo.isCondition2, jdbcType=INTEGER}, #{userInfo.isCondition3, jdbcType=INTEGER},
+         #{userInfo.isCondition4, jdbcType=INTEGER}, #{userInfo.isCondition5, jdbcType=INTEGER}, #{userInfo.isCondition6, jdbcType=INTEGER},
+         #{userInfo.isCondition7, jdbcType=INTEGER}, #{userInfo.isCondition8, jdbcType=INTEGER}, #{userInfo.isCondition9, jdbcType=INTEGER},
+         #{userInfo.isCondition10, jdbcType=INTEGER}, #{userInfo.isCondition11, jdbcType=INTEGER}, #{userInfo.isCondition12, jdbcType=INTEGER},
+         #{userInfo.isCondition13, jdbcType=INTEGER})
+    </insert>
+
+    <select id="findUserInfo" parameterType="com.glu.wxApp.domain.UserInfo" resultType="com.glu.wxApp.domain.UserInfo">
+        SELECT * FROM `user_info`
+        where (`user_id` = if(#{userInfo.userId, jdbcType=INTEGER}=-1, `user_id`, #{userInfo.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`birth` = ifnull(#{userInfo.birth, jdbcType=DATE}, `birth`) or isnull(`birth`))
+          and (`sex` = if(#{userInfo.sex, jdbcType=INTEGER}=-1, `sex`, #{userInfo.sex, jdbcType=INTEGER}) or isnull(`sex`))
+          and (`height` = if(#{userInfo.height, jdbcType=DOUBLE}=-1, `height`, #{userInfo.height, jdbcType=DOUBLE}) or isnull(`height`))
+          and (`weight` = if(#{userInfo.weight, jdbcType=DOUBLE}=-1, `sex`, #{userInfo.weight, jdbcType=DOUBLE}) or isnull(`weight`))
+          and (`bmi` = if(#{userInfo.bmi, jdbcType=DOUBLE}=-1, `bmi`, #{userInfo.bmi, jdbcType=DOUBLE}) or isnull(`bmi`))
+          and (`intensity` = if(#{userInfo.intensity, jdbcType=INTEGER}=-1, `intensity`, #{userInfo.intensity, jdbcType=INTEGER}) or isnull(`intensity`))
+          and (`level` = if(#{userInfo.level, jdbcType=INTEGER}=-1, `level`, #{userInfo.level, jdbcType=INTEGER}) or isnull(`level`))
+          and (`is_condition_1` = if(#{userInfo.isCondition1, jdbcType=INTEGER}=-1, `is_condition_1`, #{userInfo.isCondition1, jdbcType=INTEGER}) or isnull(`is_condition_1`))
+          and (`is_condition_2` = if(#{userInfo.isCondition2, jdbcType=INTEGER}=-1, `is_condition_2`, #{userInfo.isCondition2, jdbcType=INTEGER}) or isnull(`is_condition_2`))
+          and (`is_condition_3` = if(#{userInfo.isCondition3, jdbcType=INTEGER}=-1, `is_condition_3`, #{userInfo.isCondition3, jdbcType=INTEGER}) or isnull(`is_condition_3`))
+          and (`is_condition_4` = if(#{userInfo.isCondition4, jdbcType=INTEGER}=-1, `is_condition_4`, #{userInfo.isCondition4, jdbcType=INTEGER}) or isnull(`is_condition_4`))
+          and (`is_condition_5` = if(#{userInfo.isCondition5, jdbcType=INTEGER}=-1, `is_condition_5`, #{userInfo.isCondition5, jdbcType=INTEGER}) or isnull(`is_condition_5`))
+          and (`is_condition_6` = if(#{userInfo.isCondition6, jdbcType=INTEGER}=-1, `is_condition_6`, #{userInfo.isCondition6, jdbcType=INTEGER}) or isnull(`is_condition_6`))
+          and (`is_condition_7` = if(#{userInfo.isCondition7, jdbcType=INTEGER}=-1, `is_condition_7`, #{userInfo.isCondition7, jdbcType=INTEGER}) or isnull(`is_condition_7`))
+          and (`is_condition_8` = if(#{userInfo.isCondition8, jdbcType=INTEGER}=-1, `is_condition_8`, #{userInfo.isCondition8, jdbcType=INTEGER}) or isnull(`is_condition_8`))
+          and (`is_condition_9` = if(#{userInfo.isCondition9, jdbcType=INTEGER}=-1, `is_condition_9`, #{userInfo.isCondition9, jdbcType=INTEGER}) or isnull(`is_condition_9`))
+          and (`is_condition_10` = if(#{userInfo.isCondition10, jdbcType=INTEGER}=-1, `is_condition_10`, #{userInfo.isCondition10, jdbcType=INTEGER}) or isnull(`is_condition_10`))
+          and (`is_condition_11` = if(#{userInfo.isCondition11, jdbcType=INTEGER}=-1, `is_condition_11`, #{userInfo.isCondition11, jdbcType=INTEGER}) or isnull(`is_condition_11`))
+          and (`is_condition_12` = if(#{userInfo.isCondition12, jdbcType=INTEGER}=-1, `is_condition_12`, #{userInfo.isCondition12, jdbcType=INTEGER}) or isnull(`is_condition_12`))
+          and (`is_condition_13` = if(#{userInfo.isCondition13, jdbcType=INTEGER}=-1, `is_condition_13`, #{userInfo.isCondition13, jdbcType=INTEGER}) or isnull(`is_condition_13`))
+    </select>
+
+    <update id="updateUserInfo" parameterType="com.glu.wxApp.domain.UserInfo">
+        UPDATE `user_info` set
+                                 `user_id`=#{userInfoNew.userId, jdbcType=INTEGER}, `birth`=#{userInfoNew.birth, jdbcType=DATE},
+                                 `sex`=#{userInfoNew.sex, jdbcType=INTEGER}, `height`=#{userInfoNew.height, jdbcType=DOUBLE},
+                                 `weight`=#{userInfoNew.weight, jdbcType=DOUBLE}, `bmi`=#{userInfoNew.level, jdbcType=INTEGER},
+                                 `intensity`=#{userInfoNew.intensity, jdbcType=INTEGER}, `level`=#{userInfoNew.height, jdbcType=DOUBLE},
+                                 `is_condition_1`=#{userInfoNew.isCondition1, jdbcType=INTEGER}, `is_condition_2`=#{userInfoNew.isCondition2, jdbcType=INTEGER},
+                                 `is_condition_3`=#{userInfoNew.isCondition3, jdbcType=INTEGER}, `is_condition_4`=#{userInfoNew.isCondition4, jdbcType=INTEGER},
+                                 `is_condition_5`=#{userInfoNew.isCondition5, jdbcType=INTEGER}, `is_condition_6`=#{userInfoNew.isCondition6, jdbcType=INTEGER},
+                                 `is_condition_7`=#{userInfoNew.isCondition7, jdbcType=INTEGER}, `is_condition_8`=#{userInfoNew.isCondition8, jdbcType=INTEGER},
+                                 `is_condition_9`=#{userInfoNew.isCondition9, jdbcType=INTEGER}, `is_condition_10`=#{userInfoNew.isCondition10, jdbcType=INTEGER},
+                                 `is_condition_11`=#{userInfoNew.isCondition11, jdbcType=INTEGER}, `is_condition_12`=#{userInfoNew.isCondition12, jdbcType=INTEGER},
+                                 `is_condition_13`=#{userInfoNew.isCondition13, jdbcType=INTEGER}
+        where (`user_id` = if(#{userInfoOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{userInfoOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`birth` = ifnull(#{userInfoOld.birth, jdbcType=DATE}, `birth`) or isnull(`birth`))
+          and (`sex` = if(#{userInfoOld.sex, jdbcType=INTEGER}=-1, `sex`, #{userInfoOld.sex, jdbcType=INTEGER}) or isnull(`sex`))
+          and (`height` = if(#{userInfoOld.height, jdbcType=DOUBLE}=-1, `height`, #{userInfoOld.height, jdbcType=DOUBLE}) or isnull(`height`))
+          and (`weight` = if(#{userInfoOld.weight, jdbcType=DOUBLE}=-1, `sex`, #{userInfoOld.weight, jdbcType=DOUBLE}) or isnull(`weight`))
+          and (`bmi` = if(#{userInfoOld.bmi, jdbcType=DOUBLE}=-1, `bmi`, #{userInfoOld.bmi, jdbcType=DOUBLE}) or isnull(`bmi`))
+          and (`intensity` = if(#{userInfoOld.intensity, jdbcType=INTEGER}=-1, `intensity`, #{userInfoOld.intensity, jdbcType=INTEGER}) or isnull(`intensity`))
+          and (`level` = if(#{userInfoOld.level, jdbcType=INTEGER}=-1, `level`, #{userInfoOld.level, jdbcType=INTEGER}) or isnull(`level`))
+          and (`is_condition_1` = if(#{userInfoOld.isCondition1, jdbcType=INTEGER}=-1, `is_condition_1`, #{userInfoOld.isCondition1, jdbcType=INTEGER}) or isnull(`is_condition_1`))
+          and (`is_condition_2` = if(#{userInfoOld.isCondition2, jdbcType=INTEGER}=-1, `is_condition_2`, #{userInfoOld.isCondition2, jdbcType=INTEGER}) or isnull(`is_condition_2`))
+          and (`is_condition_3` = if(#{userInfoOld.isCondition3, jdbcType=INTEGER}=-1, `is_condition_3`, #{userInfoOld.isCondition3, jdbcType=INTEGER}) or isnull(`is_condition_3`))
+          and (`is_condition_4` = if(#{userInfoOld.isCondition4, jdbcType=INTEGER}=-1, `is_condition_4`, #{userInfoOld.isCondition4, jdbcType=INTEGER}) or isnull(`is_condition_4`))
+          and (`is_condition_5` = if(#{userInfoOld.isCondition5, jdbcType=INTEGER}=-1, `is_condition_5`, #{userInfoOld.isCondition5, jdbcType=INTEGER}) or isnull(`is_condition_5`))
+          and (`is_condition_6` = if(#{userInfoOld.isCondition6, jdbcType=INTEGER}=-1, `is_condition_6`, #{userInfoOld.isCondition6, jdbcType=INTEGER}) or isnull(`is_condition_6`))
+          and (`is_condition_7` = if(#{userInfoOld.isCondition7, jdbcType=INTEGER}=-1, `is_condition_7`, #{userInfoOld.isCondition7, jdbcType=INTEGER}) or isnull(`is_condition_7`))
+          and (`is_condition_8` = if(#{userInfoOld.isCondition8, jdbcType=INTEGER}=-1, `is_condition_8`, #{userInfoOld.isCondition8, jdbcType=INTEGER}) or isnull(`is_condition_8`))
+          and (`is_condition_9` = if(#{userInfoOld.isCondition9, jdbcType=INTEGER}=-1, `is_condition_9`, #{userInfoOld.isCondition9, jdbcType=INTEGER}) or isnull(`is_condition_9`))
+          and (`is_condition_10` = if(#{userInfoOld.isCondition10, jdbcType=INTEGER}=-1, `is_condition_10`, #{userInfoOld.isCondition10, jdbcType=INTEGER}) or isnull(`is_condition_10`))
+          and (`is_condition_11` = if(#{userInfoOld.isCondition11, jdbcType=INTEGER}=-1, `is_condition_11`, #{userInfoOld.isCondition11, jdbcType=INTEGER}) or isnull(`is_condition_11`))
+          and (`is_condition_12` = if(#{userInfoOld.isCondition12, jdbcType=INTEGER}=-1, `is_condition_12`, #{userInfoOld.isCondition12, jdbcType=INTEGER}) or isnull(`is_condition_12`))
+          and (`is_condition_13` = if(#{userInfoOld.isCondition13, jdbcType=INTEGER}=-1, `is_condition_13`, #{userInfoOld.isCondition13, jdbcType=INTEGER}) or isnull(`is_condition_13`))
+    </update>
+
+    <delete id="deleteUserInfo" parameterType="com.glu.wxApp.domain.UserInfo">
+        DELETE FROM `user_info`
+        where (`user_id` = if(#{userInfo.userId, jdbcType=INTEGER}=-1, `user_id`, #{userInfo.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`birth` = ifnull(#{userInfo.birth, jdbcType=DATE}, `birth`) or isnull(`birth`))
+          and (`sex` = if(#{userInfo.sex, jdbcType=INTEGER}=-1, `sex`, #{userInfo.sex, jdbcType=INTEGER}) or isnull(`sex`))
+          and (`height` = if(#{userInfo.height, jdbcType=DOUBLE}=-1, `height`, #{userInfo.height, jdbcType=DOUBLE}) or isnull(`height`))
+          and (`weight` = if(#{userInfo.weight, jdbcType=DOUBLE}=-1, `sex`, #{userInfo.weight, jdbcType=DOUBLE}) or isnull(`weight`))
+          and (`bmi` = if(#{userInfo.bmi, jdbcType=DOUBLE}=-1, `bmi`, #{userInfo.bmi, jdbcType=DOUBLE}) or isnull(`bmi`))
+          and (`intensity` = if(#{userInfo.intensity, jdbcType=INTEGER}=-1, `intensity`, #{userInfo.intensity, jdbcType=INTEGER}) or isnull(`intensity`))
+          and (`level` = if(#{userInfo.level, jdbcType=INTEGER}=-1, `level`, #{userInfo.level, jdbcType=INTEGER}) or isnull(`level`))
+          and (`is_condition_1` = if(#{userInfo.isCondition1, jdbcType=INTEGER}=-1, `is_condition_1`, #{userInfo.isCondition1, jdbcType=INTEGER}) or isnull(`is_condition_1`))
+          and (`is_condition_2` = if(#{userInfo.isCondition2, jdbcType=INTEGER}=-1, `is_condition_2`, #{userInfo.isCondition2, jdbcType=INTEGER}) or isnull(`is_condition_2`))
+          and (`is_condition_3` = if(#{userInfo.isCondition3, jdbcType=INTEGER}=-1, `is_condition_3`, #{userInfo.isCondition3, jdbcType=INTEGER}) or isnull(`is_condition_3`))
+          and (`is_condition_4` = if(#{userInfo.isCondition4, jdbcType=INTEGER}=-1, `is_condition_4`, #{userInfo.isCondition4, jdbcType=INTEGER}) or isnull(`is_condition_4`))
+          and (`is_condition_5` = if(#{userInfo.isCondition5, jdbcType=INTEGER}=-1, `is_condition_5`, #{userInfo.isCondition5, jdbcType=INTEGER}) or isnull(`is_condition_5`))
+          and (`is_condition_6` = if(#{userInfo.isCondition6, jdbcType=INTEGER}=-1, `is_condition_6`, #{userInfo.isCondition6, jdbcType=INTEGER}) or isnull(`is_condition_6`))
+          and (`is_condition_7` = if(#{userInfo.isCondition7, jdbcType=INTEGER}=-1, `is_condition_7`, #{userInfo.isCondition7, jdbcType=INTEGER}) or isnull(`is_condition_7`))
+          and (`is_condition_8` = if(#{userInfo.isCondition8, jdbcType=INTEGER}=-1, `is_condition_8`, #{userInfo.isCondition8, jdbcType=INTEGER}) or isnull(`is_condition_8`))
+          and (`is_condition_9` = if(#{userInfo.isCondition9, jdbcType=INTEGER}=-1, `is_condition_9`, #{userInfo.isCondition9, jdbcType=INTEGER}) or isnull(`is_condition_9`))
+          and (`is_condition_10` = if(#{userInfo.isCondition10, jdbcType=INTEGER}=-1, `is_condition_10`, #{userInfo.isCondition10, jdbcType=INTEGER}) or isnull(`is_condition_10`))
+          and (`is_condition_11` = if(#{userInfo.isCondition11, jdbcType=INTEGER}=-1, `is_condition_11`, #{userInfo.isCondition11, jdbcType=INTEGER}) or isnull(`is_condition_11`))
+          and (`is_condition_12` = if(#{userInfo.isCondition12, jdbcType=INTEGER}=-1, `is_condition_12`, #{userInfo.isCondition12, jdbcType=INTEGER}) or isnull(`is_condition_12`))
+          and (`is_condition_13` = if(#{userInfo.isCondition13, jdbcType=INTEGER}=-1, `is_condition_13`, #{userInfo.isCondition13, jdbcType=INTEGER}) or isnull(`is_condition_13`))
+    </delete>
+
+</mapper>

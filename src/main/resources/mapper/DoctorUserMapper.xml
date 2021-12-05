@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.glu.wxApp.mapper.DoctorUserMapper">
+
+    <insert id="addDoctorUser" parameterType="com.glu.wxApp.domain.DoctorUser" useGeneratedKeys="true">
+        INSERT INTO `doctor_user`
+            (`doctor_id`, `user_id`, `doctor_name`)
+        VALUES
+        (#{doctorUser.doctorId, jdbcType=INTEGER}, #{doctorUser.userId, jdbcType=INTEGER}, #{doctorUser.doctorName, jdbcType=VARCHAR})
+    </insert>
+
+    <select id="findDoctorUser" parameterType="com.glu.wxApp.domain.DoctorUser" resultType="com.glu.wxApp.domain.DoctorUser">
+        SELECT * FROM `doctor_user`
+        where (`doctor_id` = if(#{doctorUser.doctorId, jdbcType=INTEGER}=-1, `doctor_id`, #{doctorUser.doctorId, jdbcType=INTEGER}) or isnull(`doctor_id`))
+          and (`user_id` = if(#{doctorUser.userId, jdbcType=INTEGER}=-1, `user_id`, #{doctorUser.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`doctor_name` = ifnull(#{doctorUser.doctorName, jdbcType=VARCHAR}, `doctor_name`) or isnull(`doctor_name`))
+    </select>
+
+    <update id="updateDoctorUser" parameterType="com.glu.wxApp.domain.DoctorUser">
+        UPDATE `doctor_user` set
+                                 `doctor_id`=#{doctorUserNew.doctorId, jdbcType=INTEGER}, `user_id`=#{doctorUserNew.userId, jdbcType=INTEGER},
+                                 `doctor_name`=#{doctorUserNew.doctorName, jdbcType=VARCHAR}
+        where (`doctor_id` = if(#{doctorUserOld.doctorId, jdbcType=INTEGER}=-1, `doctor_id`, #{doctorUserOld.doctorId, jdbcType=INTEGER}) or isnull(`doctor_id`))
+          and (`user_id` = if(#{doctorUserOld.userId, jdbcType=INTEGER}=-1, `user_id`, #{doctorUserOld.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`doctor_name` = ifnull(#{doctorUserOld.doctorName, jdbcType=VARCHAR}, `doctor_name`) or isnull(`doctor_name`))
+    </update>
+
+    <delete id="deleteDoctorUser" parameterType="com.glu.wxApp.domain.DoctorUser">
+        DELETE FROM `doctor_user`
+        where (`doctor_id` = if(#{doctorUser.doctorId, jdbcType=INTEGER}=-1, `doctor_id`, #{doctorUser.doctorId, jdbcType=INTEGER}) or isnull(`doctor_id`))
+          and (`user_id` = if(#{doctorUser.userId, jdbcType=INTEGER}=-1, `user_id`, #{doctorUser.userId, jdbcType=INTEGER}) or isnull(`user_id`))
+          and (`doctor_name` = ifnull(#{doctorUser.doctorName, jdbcType=VARCHAR}, `doctor_name`) or isnull(`doctor_name`))
+    </delete>
+
+</mapper>
