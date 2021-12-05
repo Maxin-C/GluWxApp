@@ -670,7 +670,6 @@ public class ParseFunction {
                 userInfo.setWeight((double) userInfoM.get("weight"));
                 userInfo.setBmi((double) userInfoM.get("bmi"));
                 userInfo.setIntensity((int) (double) userInfoM.get("intensity"));
-                userInfo.setLevel((int) (double) userInfoM.get("level"));
                 userInfo.setIsCondition1((int) (double) userInfoM.get("isCondition1"));
                 userInfo.setIsCondition2((int) (double) userInfoM.get("isCondition2"));
                 userInfo.setIsCondition3((int) (double) userInfoM.get("isCondition3"));
@@ -684,6 +683,19 @@ public class ParseFunction {
                 userInfo.setIsCondition11((int) (double) userInfoM.get("isCondition11"));
                 userInfo.setIsCondition12((int) (double) userInfoM.get("isCondition12"));
                 userInfo.setIsCondition13((int) (double) userInfoM.get("isCondition13"));
+
+                userInfo.setLevel((int) (double) userInfoM.get("level"));
+                Date today = new Date();
+                int age = today.getYear() - date.getYear();
+                if (age >= 40 || userInfo.getBmi()>=24 || userInfo.getIsCondition1() != 0 || userInfo.getIsCondition2() != 0 ||
+                        userInfo.getIsCondition3() != 0 ||userInfo.getIsCondition4() != 0 || userInfo.getIsCondition5() != 0 ||
+                        userInfo.getIsCondition6() != 0 || userInfo.getIsCondition7() != 0 || userInfo.getIsCondition8() != 0 ||
+                        userInfo.getIsCondition9() != 0 || userInfo.getIsCondition10() != 0){
+                    userInfo.setLevel(1);
+                }
+                if (userInfo.getIsCondition11() != 0 || userInfo.getIsCondition12() != 0 || userInfo.getIsCondition13() != 0){
+                    userInfo.setLevel(2);
+                }
 //             && userInfoM.get("level") != null &&
 //                    userInfoM.get("isCondition1") != null && userInfoM.get("isCondition2") != null && userInfoM.get("isCondition3") != null && userInfoM.get("isCondition4") != null &&
 //                    userInfoM.get("isCondition5") != null && userInfoM.get("isCondition6") != null && userInfoM.get("isCondition7") != null && userInfoM.get("isCondition8") != null &&
