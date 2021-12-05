@@ -3,6 +3,8 @@ package com.glu.wxApp.domain;
 import java.util.Date;
 
 public class UserAuth {
+    private int id;
+
     private String phone;
 
     private String password;
@@ -13,6 +15,14 @@ public class UserAuth {
 
     public String getPhone() {
         return phone;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public void setPhone(String phone) {
